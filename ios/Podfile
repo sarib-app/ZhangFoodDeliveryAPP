@@ -19,6 +19,13 @@ target 'zhangfood' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+
+
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'zhangfoodTests' do
     inherit! :complete
     # Pods for testing
