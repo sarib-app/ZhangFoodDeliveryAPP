@@ -1,11 +1,11 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Feather from 'react-native-vector-icons/Feather'
-import Entypo from 'react-native-vector-icons/Entypo'
+import Fontisto from 'react-native-vector-icons/Fontisto'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import Home from '../Home/Home';
 import Profile from '../Porfile/Porfile';
 import Colors from '../GlobalStyles/colors';
-// import Header from '../GlobalStyles/Header';
+import Header from '../GlobalStyles/Header';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +13,7 @@ const BottomNavigation = () => {
   return (
 
 <>
-{/* <Header/> */}
+<Header/>
     <Tab.Navigator
     screenOptions={({ route }) => ({
         headerShown: false,
@@ -35,10 +35,10 @@ const BottomNavigation = () => {
     >
       <Tab.Screen name="Home" component={Home} 
       options={{
-        tabBarLabel: 'Home',
+        tabBarLabel: 'Explore',
         tabBarIcon: ({ color, size }) => (
-        <Feather 
-        name='tv'
+        <Fontisto 
+        name='coffeescript'
                     size={26}
         color={ color}
 
@@ -53,8 +53,8 @@ const BottomNavigation = () => {
       options={{
         tabBarLabel: 'Profile',
         tabBarIcon: ({ color, size }) => (
-            <Entypo 
-            name='folder-video'
+            <Ionicons 
+            name='settings'
                         size={26}
             color={ color}
             

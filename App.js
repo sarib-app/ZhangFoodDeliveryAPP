@@ -14,6 +14,7 @@ import AboutUs from './Components/AppContents/AboutUs';
 import BottomNavigation from './Components/BottomNavigation/BottomNavigation';
 import Tos from './Components/AppContents/Tos';
 import { LogBox } from 'react-native';
+import StoreDetailScreen from './Components/StoreDetailScreen/StoreDetailScreen';
 
 
 LogBox.ignoreAllLogs()
@@ -38,6 +39,8 @@ return(
           <Stack.Screen name="BottomNavigation" component={BottomNavigation} />
 
     <Stack.Screen name="AboutUs" component={AboutUs} />
+    <Stack.Screen name="StoreDetailScreen" component={StoreDetailScreen} />
+
     <Stack.Screen name="Tos" component={Tos} />
 
 

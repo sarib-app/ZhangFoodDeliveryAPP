@@ -43,7 +43,8 @@ textDecorationLine:'underline',
 HeaderText:{
     color:Colors.FontColorI,
     fontSize:23,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    marginLeft:10
 },
 BtnText:{
   color:Colors.FontColorI,

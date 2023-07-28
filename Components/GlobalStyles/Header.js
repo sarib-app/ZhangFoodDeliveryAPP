@@ -11,10 +11,12 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import GlobalStyles from '../GlobalStyles/GlobalStyles';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'; // You can use any icon library you prefer
+
+import Fontisto from 'react-native-vector-icons/Fontisto'
 
 import Colors from './colors';
-import YtSearchSuggestions from '../Search/YtSearchSuggestions';
+// import YtSearchSuggestions from '../Search/YtSearchSuggestions';
 
 function Header (){
 const navigation = useNavigation()
@@ -34,15 +36,16 @@ function onHideSearch(){
     
   }}
       >
-      <MaterialCommunityIcons
-name='netflix'
-size={30}
-color={Colors.FontColorI}
-/>
+      <Fontisto 
+        name='coffeescript'
+                    size={26}
+        color={ Colors.FontColorI}
+
+        /> 
 <Text
 style={GlobalStyles.HeaderText}
 >
-  EarnFlix
+  CoffeeOn.
 </Text>
       </View>
 
@@ -61,24 +64,28 @@ style={GlobalStyles.HeaderText}
 name='bell-outline'
 size={30}
 color={Colors.FontColorI}
-style={{marginRight:10}}
+style={{marginRight:5}}
+/>
+<MaterialIcons name="add-shopping-cart" size={30} color={Colors.FontColorI} style={{marginRight:5}}
 />
 
-
-<Ionicons
+<Fontisto
 onPress={()=>setOpenSearch(true)}
-name='md-search-outline'
+name='world'
 size={30}
 color={Colors.FontColorI}
+style={{marginRight:5}}
+
 />
+
 
 
       </View>
-<YtSearchSuggestions 
+{/* <YtSearchSuggestions 
 shouldShow = {openSearch}
 onHide={onHideSearch}
 
-/>
+/> */}
     </SafeAreaView>
   );
 };
