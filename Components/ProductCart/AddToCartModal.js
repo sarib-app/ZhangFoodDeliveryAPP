@@ -17,11 +17,12 @@ const AddToCartModal = ({ product, visible, onClose, onAddToCart }) => {
     }
   };
 
+  const totalPrice = product.Price * quantity;
   const handleAddToCart = () => {
     // Calculate total price based on quantity and product price
-    const totalPrice = product.Price * quantity;
 
-    // Prepare the cart item object
+// console.log(totalPrice)
+    // // Prepare the cart item object
     const cartItem = {
       product,
       quantity,
@@ -45,7 +46,7 @@ const AddToCartModal = ({ product, visible, onClose, onAddToCart }) => {
               <Image source={{ uri: product.image }} style={styles.productImage} />
               <Text style={styles.productName}>{product.name}</Text>
               <Text style={styles.productDescription}>{product.description}</Text>
-              <Text style={styles.productPrice}>Price: {product.Price}</Text>
+              <Text style={styles.productPrice}>Price: ${totalPrice}</Text>
               <View style={styles.quantityContainer}>
                 <TouchableOpacity style={styles.quantityButton} onPress={handleDecrement}>
                   <Text style={styles.quantityButtonText}>-</Text>

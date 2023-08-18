@@ -1,12 +1,43 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, FlatList, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // You can use any icon library you prefer
 import Colors from '../GlobalStyles/colors';
 import { useNavigation } from '@react-navigation/native';
-
+import CheckCartStatus from '../ProductCart/CheckCartStatus';
+import HandleAddCart from '../ProductCart/HandleAddCart';
+import AddToCartModal from '../ProductCart/AddToCartModal';
+import ViewCart from '../GlobalStyles/ViewCart';
+import { useIsFocused } from '@react-navigation/native';
 const Home = () => {
 
+const focused = useIsFocused()
   const navigation = useNavigation()
+
+  const [forceCheck,setForceCheck]=useState(false)
+  const [showCartButton,setShowCartButton] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(()=>{
+    
+    existingCartCheck()
+     
+  },[focused])
+  useEffect(()=>{
+    existingCartCheck()
+  },[forceCheck])
+  const handleAddToCart = async (cartItem) => {
+    const handleCart = await HandleAddCart(cartItem)
+    if(handleCart){
+     setForceCheck(!showCartButton)
+    }
+   };
+   
+  async function existingCartCheck(){
+   const CheckStatusCart = await CheckCartStatus()
+  setShowCartButton(CheckStatusCart)
+  }
+
   // Sample data for popular stores, popular products, and categories
   const popularStores = [
     { id: 1, name: 'Store 1', banner: 'https://blog-assets.lightspeedhq.com/img/2021/03/b26bcdcf-blog_coffee-shop-equipment-list_1200x628.jpg', rating: 4.5, description: 'A trendy coffee spot with a wide variety of drinks.' },
@@ -31,13 +62,15 @@ const Home = () => {
   ];
 
   return (
-    <ScrollView style={styles.container}>
+    <View  style={styles.container}>
+
+    <ScrollView nestedScrollEnabled={true}>
       {/* Top banner */}
       <Image source={{ uri: 'https://t4.ftcdn.net/jpg/03/14/86/17/360_F_314861732_1MnoYhjA81pqeibaEJgAfXJBr0XERD5I.jpg' }} style={styles.bannerImage} />
 
       {/* Collect Daily Rewards */}
       <View style={styles.rewardContainer}>
-        <Icon name="card-giftcard" size={40} color="#fff" />
+        <Icon name="card-giftcard" size={30} color="#fff" />
         <Text style={styles.rewardText}>Collect Your Daily Login Rewards</Text>
       </View>
 
@@ -104,7 +137,14 @@ const Home = () => {
 
 
               <Text style={styles.productName}>CAD {item.Price}</Text>
-              <Icon name="add-circle" size={18} color="#FFD700" style={{marginRight:5}}/>
+              <Icon 
+              onPress={()=> 
+                {
+                  setSelectedProduct(item)
+                  setModalVisible(true)
+                }
+              }
+              name="add-circle" size={18} color="#FFD700" style={{marginRight:5}}/>
 
               </View>
 
@@ -112,7 +152,27 @@ const Home = () => {
           )}
         />
       </View>
+
+ 
+    <View style={{width:10,height:80}}>
+
+    </View>
     </ScrollView>
+    {
+  selectedProduct !=null &&
+  <AddToCartModal
+  product={selectedProduct}
+  visible={modalVisible}
+  onClose={() => setModalVisible(false)}
+  onAddToCart={handleAddToCart}
+  />
+}
+      {
+      showCartButton === true &&
+    <ViewCart/>
+    }
+    </View>
+
   );
 };
 

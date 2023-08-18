@@ -1,21 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, FlatList,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons'; // You can use any icon library you prefer
 import Colors from '../GlobalStyles/colors';
 
 import AddToCartModal from '../ProductCart/AddToCartModal';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import ViewCart from '../GlobalStyles/ViewCart';
 
+import HandleAddCart from '../ProductCart/HandleAddCart';
+import CheckCartStatus from '../ProductCart/CheckCartStatus';
+import { useIsFocused } from '@react-navigation/native';
 const StoreDetailScreen = ({ route }) => {
+  const focused = useIsFocused()
 
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
-  
-    const handleAddToCart = (cartItem) => {
-      // Add the cartItem to the cart or perform the necessary action here
-      console.log('Added to cart:', cartItem);
+    const [forceCheck,setForceCheck]=useState(false)
+    const [showCartButton,setShowCartButton] = useState(false)
+
+    const handleAddToCart = async (cartItem) => {
+     const handleCart = await HandleAddCart(cartItem)
+     if(handleCart){
+      setForceCheck(!showCartButton)
+     }
     };
+    
+    
+  useEffect(()=>{
+    
+    existingCartCheck()
+     
+  },[focused])
+
+useEffect(()=>{
+  existingCartCheck()
+},[forceCheck])
+
+async function existingCartCheck(){
+ const CheckStatusCart = await CheckCartStatus()
+setShowCartButton(CheckStatusCart)
+}
 
   // Sample store data (Replace this with the actual data from the selected store)
   const storeData = {
@@ -26,9 +52,9 @@ const StoreDetailScreen = ({ route }) => {
     description: 'A trendy coffee spot with a wide variety of drinks.',
     isOpen: true,
     products: [
-        { id: 1, name: 'Latte Dark', image: 'https://media.cnn.com/api/v1/images/stellar/prod/150929101049-black-coffee-stock.jpg?q=x_3,y_1231,h_1684,w_2993,c_crop/h_720,w_1280', description: 'Dark Latte: Pure Black beans with oil',Price:"$6.5" },
-        { id: 2, name: 'Smooth Cap', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Latte_and_dark_coffee.jpg/1200px-Latte_and_dark_coffee.jpg', description: 'Light Shot: Makes your mood charm',Price:"$8.9" },
-        { id: 3, name: 'Isponiol Beans', image: 'https://post.healthline.com/wp-content/uploads/2020/08/coffee-worlds-biggest-source-of-antioxidants-1296x728-feature_0-800x728.jpg', description: 'Brown Isponiol, Gives you wingss',Price:"$9.0" },
+        { id: 1, name: 'Latte Dark', image: 'https://media.cnn.com/api/v1/images/stellar/prod/150929101049-black-coffee-stock.jpg?q=x_3,y_1231,h_1684,w_2993,c_crop/h_720,w_1280', description: 'Dark Latte: Pure Black beans with oil',Price:"6.5" },
+        { id: 2, name: 'Smooth Cap', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Latte_and_dark_coffee.jpg/1200px-Latte_and_dark_coffee.jpg', description: 'Light Shot: Makes your mood charm',Price:"8.9" },
+        { id: 3, name: 'Isponiol Beans', image: 'https://post.healthline.com/wp-content/uploads/2020/08/coffee-worlds-biggest-source-of-antioxidants-1296x728-feature_0-800x728.jpg', description: 'Brown Isponiol, Gives you wingss',Price:"9.0" },
     ],
   };
 
@@ -41,7 +67,7 @@ return(
       <View style={styles.productDetails}>
         <Text style={styles.productName}>{item.name}</Text>
         <Text style={styles.productDescription}>{item.description}</Text>
-        <Text style={styles.productPrice}>CAD {item.Price}</Text>
+        <Text style={styles.productPrice}>CAD ${item.Price}</Text>
         <TouchableOpacity
         onPress={()=>{
             setModalVisible(true)
@@ -55,7 +81,10 @@ return(
 }
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
+    <ScrollView
+    nestedScrollEnabled={true}
+    >
       <Image source={{ uri: storeData.banner }} style={styles.storeBanner} />
 
       <View style={styles.storeInfoContainer}>
@@ -79,15 +108,24 @@ return(
             )
           }}
         />
-      </View>
 
-      <AddToCartModal
-        product={selectedProduct}
-        visible={modalVisible}
-        onClose={() => setModalVisible(false)}
-        onAddToCart={handleAddToCart}
-      />
+      </View>
+{
+  selectedProduct !=null &&
+  <AddToCartModal
+  product={selectedProduct}
+  visible={modalVisible}
+  onClose={() => setModalVisible(false)}
+  onAddToCart={handleAddToCart}
+  />
+}
     </ScrollView>
+    {
+      showCartButton === true &&
+    <ViewCart/>
+    }
+
+</View>
   );
 };
 

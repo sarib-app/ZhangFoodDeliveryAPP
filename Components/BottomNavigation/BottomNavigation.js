@@ -5,7 +5,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Home from '../Home/Home';
 import Profile from '../Porfile/Porfile';
 import Colors from '../GlobalStyles/colors';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import Header from '../GlobalStyles/Header';
+import Notification from '../Notification/notification';
+import OrderList from '../OrderList/OrderList';
+import MapStores from '../MapStores/MapStores';
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +44,7 @@ const BottomNavigation = () => {
         tabBarIcon: ({ color, size }) => (
         <Fontisto 
         name='coffeescript'
-                    size={26}
+                    size={20}
         color={ color}
 
         />        
@@ -48,6 +53,56 @@ const BottomNavigation = () => {
 
       
       />
+
+
+
+<Tab.Screen name="MapStores" component={MapStores} 
+      options={{
+        tabBarLabel: 'Stores',
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons
+    name='bell-outline'
+    size={25}
+    color={color}
+    />        
+       ),}}
+
+
+      
+      />
+
+<Tab.Screen name="Notifications" component={Notification} 
+      options={{
+        tabBarLabel: 'Notifcations',
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons
+    name='bell-outline'
+    size={25}
+    color={color}
+    />        
+       ),}}
+
+
+      
+      />
+
+
+
+<Tab.Screen name="OrderList" component={OrderList} 
+      options={{
+        tabBarLabel: 'Orders',
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons
+    name='order-bool-ascending-variant'
+    size={25}
+    color={color}
+    />        
+       ),}}
+
+
+      
+      />
+
       <Tab.Screen name="Profile" component={Profile} 
       
       options={{
@@ -55,7 +110,7 @@ const BottomNavigation = () => {
         tabBarIcon: ({ color, size }) => (
             <Ionicons 
             name='settings'
-                        size={26}
+                        size={20}
             color={ color}
             
             

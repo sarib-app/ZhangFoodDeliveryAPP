@@ -15,8 +15,11 @@ import BottomNavigation from './Components/BottomNavigation/BottomNavigation';
 import Tos from './Components/AppContents/Tos';
 import { LogBox } from 'react-native';
 import StoreDetailScreen from './Components/StoreDetailScreen/StoreDetailScreen';
-
-
+import CartDetailScreen from './Components/ProductCart/CartDetailScreen';
+import PaymentCheckoutScreen from './Components/PaymentCheckout/PaymentCheckout';
+import OrderDetailScreen from './Components/ProductCart/OrderDetailScreen';
+import OrderTakenScreen from './Components/OrderTakenScreen/OrderTakenScreen';
+import SearchScreen from './Components/Search/SearchScreen';
 LogBox.ignoreAllLogs()
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +45,13 @@ return(
     <Stack.Screen name="StoreDetailScreen" component={StoreDetailScreen} />
 
     <Stack.Screen name="Tos" component={Tos} />
+    <Stack.Screen name="PaymentCheckoutScreen" component={PaymentCheckoutScreen} />
+    <Stack.Screen name="OrderTakenScreen" component={OrderTakenScreen} />
+
+    <Stack.Screen name="CartDetailScreen" component={CartDetailScreen} />
+    <Stack.Screen name="SearchScreen" component={SearchScreen} />
+
+    <Stack.Screen name="OrderDetailScreen" component={OrderDetailScreen} />
 
 
 

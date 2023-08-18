@@ -23,6 +23,22 @@ Header:{
     justifyContent:'space-between'
     // justifyContent:'center'
 },
+ViewCartButton:{
+  width:WindowWidth/1.2,
+  borderRadius:8,
+  alignSelf:'center',
+  // elevation:4,
+  
+  // shadowColor:Colors.Dark ,
+  height:WindowHeight/18,
+  backgroundColor:Colors.PrimaryColor,
+  justifyContent:'center',
+  alignItems:'center',
+  // flexDirection:'row',
+  // position:'absolute',
+  position:'absolute',
+  bottom:10
+},
 SmallBtn:{
  
   padding:20,
@@ -42,7 +58,7 @@ textDecorationLine:'underline',
 },
 HeaderText:{
     color:Colors.FontColorI,
-    fontSize:23,
+    fontSize:18,
     fontWeight:'bold',
     marginLeft:10
 },
