@@ -61,7 +61,7 @@ const BottomNavigation = () => {
         tabBarLabel: 'Stores',
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons
-    name='bell-outline'
+    name='storefront'
     size={25}
     color={color}
     />        

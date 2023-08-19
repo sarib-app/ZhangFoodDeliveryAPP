@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList ,Image,ScrollView, ImageBackground,TouchableHighlight, Pressable } from 'react-native';
+import { View, Text, FlatList ,Image,ScrollView, ImageBackground,TouchableHighlight, Pressable, TouchableOpacity } from 'react-native';
 import GlobalStyles from '../GlobalStyles/GlobalStyles';
 import Styles from './Styles';
 import profMale from '../../assets/images/male.png'
@@ -11,11 +11,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Colors from '../GlobalStyles/colors';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import InviteEarn from '../Invite&earn/InviteEarn';
 import { useIsFocused } from '@react-navigation/native';
+import Tos from '../App\'sContent/Tos';
+import PrivacyPolicy from '../App\'sContent/PrivacyPolicy';
 const Profile = () => {
   const focused=useIsFocused()
 const navigation =  useNavigation()
+const [showPrivacy, setShowPrivacy] = useState(false);
+const [showTos, setShowTos] = useState(false);
 const [user,setUser]=useState(
   {
       id:"userr.id",
@@ -34,7 +38,19 @@ function onHideInvitation(){
   setShowInvitationModal(false)
     
 }
-
+function navigationRester(title) {
+  navigation.reset({
+    index: 0,
+    routes: [{ name: title }],
+  });
+}
+function onHideTos(){
+  setShowTos((p)=> !p)
+  }
+  function onHidePrivacy(){
+    setShowPrivacy((p)=> !p)
+  
+  }
   return (
 
     <View 
@@ -121,7 +137,6 @@ color={Colors.FontColorI}
 
 </View>
 
-
 <View style={Styles.CardWrapperBottom}>
 
 <View
@@ -139,64 +154,15 @@ style={Styles.IconWrapper}
 <Text
 style={GlobalStyles.textStyle}
 >
-  Favourite
+  Total JGK
 </Text>
 </View>
-
-<Ionicons 
-name='chevron-forward'
-size={20}
-color={Colors.FontColorI}
-/>
-
-</View>
-
-
-
-<View style={Styles.CardWrapperBottom}>
-
-<View
-  style={{flexDirection:'row',alignItems:'center'}}
-  >
-
-
-<MaterialCommunityIcons
-name='bell-outline'
-size={20}
-color={Colors.FontColorI}
-style={Styles.IconWrapper}
-/>
-
 <Text
 style={GlobalStyles.textStyle}
 >
-  Notifications
+  100
 </Text>
 </View>
-
-<TouchableHighlight
-onPress={()=> navigation.navigate("Notification")}
->
-
-<Ionicons 
-name='chevron-forward'
-size={20}
-color={Colors.FontColorI}
-/>
-</TouchableHighlight>
-
-</View>
-
-
-</View>
-
-
-
-
-
-<View
-style={Styles.CardWrapperALL}
->
 <View style={Styles.CardWrapperBottom}>
 
 <View
@@ -231,6 +197,83 @@ color={Colors.FontColorI}
 
 </View>
 
+{/* <View style={Styles.CardWrapperBottom}>
+
+<View
+  style={{flexDirection:'row',alignItems:'center'}}
+  >
+
+
+<Fontisto
+name='favorite'
+color={iconColor}
+size={20}
+style={Styles.IconWrapper}
+
+/>
+<Text
+style={GlobalStyles.textStyle}
+>
+  Favourite
+</Text>
+</View>
+
+<Ionicons 
+name='chevron-forward'
+size={20}
+color={Colors.FontColorI}
+/>
+
+</View> */}
+
+
+
+{/* <View style={Styles.CardWrapperBottom}>
+
+<View
+  style={{flexDirection:'row',alignItems:'center'}}
+  >
+
+
+<MaterialCommunityIcons
+name='bell-outline'
+size={20}
+color={Colors.FontColorI}
+style={Styles.IconWrapper}
+/>
+
+<Text
+style={GlobalStyles.textStyle}
+>
+  Notifications
+</Text>
+</View>
+
+<TouchableHighlight
+onPress={()=> navigation.navigate("Notification")}
+>
+
+<Ionicons 
+name='chevron-forward'
+size={20}
+color={Colors.FontColorI}
+/>
+</TouchableHighlight>
+
+</View> */}
+
+
+</View>
+
+
+
+
+
+<View
+style={Styles.CardWrapperALL}
+>
+
+
 
 <Pressable 
 onPress={()=> navigation.navigate("HelpCenter")}
@@ -264,8 +307,42 @@ color={Colors.FontColorI}
 </Pressable>
 
 
+<TouchableOpacity 
+onPress={()=> navigation.navigate("AboutUs")}
 
-<View style={Styles.CardWrapperBottom}>
+style={Styles.CardWrapperBottom}>
+
+<View
+  style={{flexDirection:'row',alignItems:'center'}}
+  >
+
+
+<MaterialIcons
+name='privacy-tip'
+color={Colors.FontColorI}
+size={20}
+style={Styles.IconWrapper}
+
+/>
+<Text
+style={GlobalStyles.textStyle}
+>
+  About Us
+</Text>
+</View>
+
+<Ionicons 
+name='chevron-forward'
+size={20}
+color={Colors.FontColorI}
+/>
+
+</TouchableOpacity>
+
+<TouchableOpacity 
+onPress={()=> setShowPrivacy(true)}
+
+style={Styles.CardWrapperBottom}>
 
 <View
   style={{flexDirection:'row',alignItems:'center'}}
@@ -292,11 +369,13 @@ size={20}
 color={Colors.FontColorI}
 />
 
-</View>
+</TouchableOpacity>
 
 
 
-<View style={Styles.CardWrapperBottom}>
+<TouchableOpacity 
+onPress={()=> setShowTos(true)}
+style={Styles.CardWrapperBottom}>
 
 <View
   style={{flexDirection:'row',alignItems:'center'}}
@@ -322,7 +401,7 @@ size={20}
 color={Colors.FontColorI}
 />
 
-</View>
+</TouchableOpacity>
 
 
 
@@ -340,11 +419,17 @@ style={Styles.CardWrapperALL}
 
 
 
-<View style={Styles.CardWrapperBottom}>
+<TouchableOpacity 
+onPress={()=> {
+  navigation.navigate("Login")
+  navigationRester("Login")
+  AsyncStorage.clear()
+}}
+style={Styles.CardWrapperBottom}>
 
-<Pressable
+<View
 
-onPress={()=> AsyncStorage.clear()}
+
   style={{flexDirection:'row',alignItems:'center'}}
   >
 
@@ -360,7 +445,7 @@ style={[GlobalStyles.textStyle,{color:Colors.danger}]}
 >
   Log Out 
 </Text>
-</Pressable>
+</View>
 
 <Ionicons 
 name='chevron-forward'
@@ -368,7 +453,7 @@ size={20}
 color={'transparent'}
 />
 
-</View>
+</TouchableOpacity>
 
 
 
@@ -420,13 +505,22 @@ style={{color:Colors.FontColorII}}
 <View style={{width:100,height:200}}>
 
 </View>
-{/* {
+{
   showIvitationModal === true &&
 <InviteEarn 
 show={showIvitationModal}
 onHide={onHideInvitation}
 />
-} */}
+}
+
+<PrivacyPolicy
+isVisible={showPrivacy}
+onHide={onHidePrivacy}
+/>
+<Tos 
+isVisible={showTos}
+onHide={onHideTos}
+/>
 </ScrollView>
 
 

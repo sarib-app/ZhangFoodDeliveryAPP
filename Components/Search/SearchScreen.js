@@ -54,7 +54,7 @@ const SearchScreen = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <Pressable 
-          onPress={()=> navigation.navigate("StoreDetailScreen")}
+          onPress={()=> navigation.navigate("ResturantSearchResult")}
           style={styles.resultItem}>
             <Text style={styles.resultName}>{item.name}</Text>
             <Text style={styles.resultCategory}>{item.category}</Text>

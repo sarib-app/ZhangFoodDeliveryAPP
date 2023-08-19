@@ -23,7 +23,7 @@ onPress={()=>  navigation.goBack()}
 
 >
   <IonIcon 
-  name='ios-arrow-back-circle'
+  name='arrow-back'
   color={Colors.PrimaryColor}
   size={28}
   />

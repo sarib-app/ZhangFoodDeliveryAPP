@@ -1,42 +1,52 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import HeaderScreens from '../GlobalStyles/HeaderScreens';
+import Colors from '../GlobalStyles/colors';
+import QR from '../../assets/images/QR.png'
 
 const OrderTakenScreen = () => {
 
   return (
     <View style={styles.container}>
+      <HeaderScreens
+      ScreenName={"Order In Progress"}
+      />
+
+      <View style={styles.CardWrapper}>
+
       <View style={styles.orderSummary}>
         <Text style={styles.orderIdText}>Order ID: #212321</Text>
-        <Text style={styles.statusText}>Status: IN PROGRESS</Text>
+        <Text style={styles.totalBillText}>Status: IN PROGRESS</Text>
         <Text style={styles.totalBillText}>Total Bill: $200</Text>
-      </View>
-      <View style={styles.orderDetails}>
-        <Text style={styles.receiveOrderText}>Receive Your Order after 12 minutes</Text>
-        {/* Add other order details as needed */}
-        {/* For example, you can render the list of ordered items with their details */}
-        {/* You can also display the customer's address, delivery time, etc. */}
-      </View>
+        <Text style={styles.totalBillText}>Estimated Time 25 Min</Text>
 
+      </View>
+    
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.showAddressButton}>
-          <Text style={styles.showAddressButtonText}>Show Address</Text>
+          <Text style={styles.showAddressButtonText}>Show Address on map</Text>
           <MaterialIcon name="location-on" size={20} color="#161616" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.showAddressOnMapButton}>
-          <Text style={styles.showAddressOnMapButtonText}>Show Address on Map</Text>
-          <MaterialIcon name="map" size={20} color="#161616" />
+          <Text style={styles.showAddressOnMapButtonText}>Call Vendor</Text>
+        <Icon name="phone" size={24} color={Colors.Dark} style={styles.icon} />
         </TouchableOpacity>
       </View>
-
-      <View style={styles.iconsContainer}>
-        {/* Add your desired icons here */}
-        <Icon name="phone" size={24} color="#B7DFA1" style={styles.icon} />
-        <Icon name="comments" size={24} color="#B7DFA1" style={styles.icon} />
-        <Icon name="star" size={24} color="#B7DFA1" style={styles.icon} />
-        {/* Add more icons as needed */}
       </View>
+
+  <View style={styles.CardWrapper}>
+
+<Text style={styles.QrText}>Show the QR to Vendor</Text>
+<Image 
+source={QR}
+style={{width:200,height:200,tintColor:Colors.FontColorI}}
+/>
+
+  </View>
+
+
     </View>
   );
 };
@@ -44,9 +54,24 @@ const OrderTakenScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#161616', // Dark background color
+    backgroundColor: Colors.BgColor, // Dark background color
+  },
+  QrText:{
+   color:Colors.FontColorI,
+   fontSize:22,
+   fontWeight:'bold' 
+  },
+  CardWrapper:{
+    margin:20,
+    color:Colors.Dark,
+    padding:20,
+    width:'100%',
+    backgroundColor:Colors.Dark,
+    shadowColor:Colors.Dark,
+    elevation:4,
+    alignItems:"center"
   },
   orderSummary: {
     backgroundColor: '#B7DFA1', // Primary color for order summary background
@@ -88,7 +113,7 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    // marginBottom: 20,
     width: '80%',
   },
   showAddressButton: {
